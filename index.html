@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="icon" type="image/png" href="f.png">
+<title>Hameed Photo Studio - PhotoHome </title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ---------- Blue info strip (Wedding Packages / Collections / Products) ---------- */
+    .info-strip {
+      background-color: #0f1f4d;
+    }
+    .info-strip-inner {
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+    }
+    .info-strip-item {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 24px;
+      color: #fff;
+      text-decoration: none;
+      border-right: 1px solid rgba(255, 255, 255, .25);
+      transition: background-color .2s ease, transform .15s ease;
+      cursor: pointer;
+    }
+    .info-strip-item:last-child {
+      border-right: none;
+    }
+    .info-strip-item:hover,
+    .info-strip-item:focus-visible {
+      background-color: rgba(255, 255, 255, .1);
+      color: #fff;
+    }
+    .info-strip-item:active {
+      transform: scale(0.98);
+    }
+    .info-strip-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      transition: color .2s ease;
+    }
+    .info-strip-item:hover .info-strip-icon {
+      color: var(--gold, #d9a95e);
+    }
+    .info-strip-text {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      min-width: 0;
+    }
+    .info-strip-text .title {
+      font-size: .78rem;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .info-strip-text .title .bi-chevron-right {
+      font-size: .6rem;
+      opacity: 0;
+      transform: translateX(-3px);
+      transition: opacity .2s ease, transform .2s ease;
+    }
+    .info-strip-item:hover .title .bi-chevron-right {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .info-strip-text small {
+      font-size: .7rem;
+      opacity: .8;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    @media (max-width: 767px) {
+      .info-strip-item {
+        flex-direction: column;
+        gap: 4px;
+        padding: 10px 6px;
+        text-align: center;
+      }
+      .info-strip-icon {
+        font-size: 1.15rem;
+      }
+      .info-strip-text {
+        align-items: center;
+        text-align: center;
+        max-width: 100%;
+      }
+      .info-strip-text .title {
+        font-size: .68rem;
+        white-space: normal;
+        line-height: 1.15;
+      }
+      .info-strip-text .title .bi-chevron-right {
+        display: none;
+      }
+      .info-strip-text small {
+        display: none;
+      }
+    }
+    /* ---------- Premium "About Us" CTA banner (home page only) ---------- */
+    .about-banner{
+      position:relative;
+      overflow:hidden;
+      background:linear-gradient(120deg, var(--navy-dark) 0%, var(--navy) 60%, var(--navy-soft) 100%);
+      border-radius:var(--radius-lg);
+      padding:54px 44px;
+      margin:10px 0 46px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:32px;
+      flex-wrap:wrap;
+      box-shadow:0 18px 45px rgba(16,26,63,.22);
+    }
+    .about-banner::before{
+      content:"";
+      position:absolute;
+      top:-60px; right:-60px;
+      width:220px; height:220px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(217,169,94,.18) 0%, rgba(217,169,94,0) 70%);
+    }
+    .about-banner::after{
+      content:"";
+      position:absolute;
+      bottom:-80px; left:10%;
+      width:260px; height:260px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(217,169,94,.10) 0%, rgba(217,169,94,0) 70%);
+    }
+    .about-banner-text{position:relative; z-index:1; max-width:560px;}
+    .about-banner .eyebrow{color:var(--gold-light); letter-spacing:2px;}
+    .about-banner h2{
+      color:#fff;
+      font-size:clamp(1.5rem,3vw,2.1rem);
+      margin:10px 0 12px;
+      line-height:1.25;
+    }
+    .about-banner p{
+      color:#c4cae0;
+      font-size:.95rem;
+      line-height:1.75;
+      margin:0;
+    }
+    .about-banner-action{
+      position:relative;
+      z-index:1;
+      flex:none;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:14px;
+    }
+    .about-banner-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      background:var(--gold);
+      color:#fff;
+      font-weight:700;
+      font-size:.95rem;
+      padding:15px 30px;
+      border-radius:999px;
+      border:1px solid var(--gold);
+      transition:background .2s ease, transform .2s ease, box-shadow .2s ease;
+      box-shadow:0 10px 26px rgba(185,135,60,.35);
+    }
+    .about-banner-btn svg{width:18px;height:18px;transition:transform .2s ease;}
+    .about-banner-btn:hover{
+      background:var(--gold-light);
+      border-color:var(--gold-light);
+      transform:translateY(-2px);
+      box-shadow:0 14px 32px rgba(185,135,60,.45);
+    }
+    .about-banner-btn:hover svg{transform:translateX(4px);}
+    .about-banner-since{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      color:#9aa3c4;
+      font-size:.78rem;
+      letter-spacing:.5px;
+    }
+    .about-banner-since i{color:var(--gold-light);}
+
+    @media (max-width:768px){
+      .about-banner{padding:38px 26px; text-align:left;}
+      .about-banner-action{width:100%;}
+      .about-banner-btn{width:100%; justify-content:center;}
+    }
+
+    /* ---------- Event Packages CTA banner (home page only) ---------- */
+    .pkg-banner{
+      position:relative;
+      overflow:hidden;
+      background:linear-gradient(120deg, var(--navy-soft) 0%, var(--navy) 55%, var(--navy-dark) 100%);
+      border-radius:var(--radius-lg);
+      padding:54px 44px;
+      margin:36px 0 46px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:32px;
+      flex-wrap:wrap;
+      box-shadow:0 18px 45px rgba(16,26,63,.22);
+    }
+    .pkg-banner::before{
+      content:"";
+      position:absolute;
+      top:-70px; left:-60px;
+      width:240px; height:240px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(217,169,94,.16) 0%, rgba(217,169,94,0) 70%);
+    }
+    .pkg-banner::after{
+      content:"";
+      position:absolute;
+      bottom:-90px; right:8%;
+      width:280px; height:280px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(217,169,94,.10) 0%, rgba(217,169,94,0) 70%);
+    }
+    .pkg-banner-text{position:relative; z-index:1; max-width:580px;}
+    .pkg-banner .eyebrow{color:var(--gold-light); letter-spacing:2px;}
+    .pkg-banner h2{
+      color:#fff;
+      font-size:clamp(1.5rem,3vw,2.1rem);
+      margin:10px 0 12px;
+      line-height:1.25;
+    }
+    .pkg-banner p{
+      color:#c4cae0;
+      font-size:.95rem;
+      line-height:1.75;
+      margin:0 0 4px;
+    }
+    .pkg-banner-tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:16px;
+    }
+    .pkg-banner-tags span{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      background:rgba(217,169,94,.12);
+      border:1px solid rgba(217,169,94,.35);
+      color:var(--gold-light);
+      font-size:.78rem;
+      font-weight:600;
+      padding:6px 14px;
+      border-radius:999px;
+    }
+    .pkg-banner-action{
+      position:relative;
+      z-index:1;
+      flex:none;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:14px;
+    }
+    .pkg-banner-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      background:var(--gold);
+      color:#fff;
+      font-weight:700;
+      font-size:.95rem;
+      padding:15px 30px;
+      border-radius:999px;
+      border:1px solid var(--gold);
+      transition:background .2s ease, transform .2s ease, box-shadow .2s ease;
+      box-shadow:0 10px 26px rgba(185,135,60,.35);
+    }
+    .pkg-banner-btn svg{width:18px;height:18px;transition:transform .2s ease;}
+    .pkg-banner-btn:hover{
+      background:var(--gold-light);
+      border-color:var(--gold-light);
+      transform:translateY(-2px);
+      box-shadow:0 14px 32px rgba(185,135,60,.45);
+    }
+    .pkg-banner-btn:hover svg{transform:translateX(4px);}
+    .pkg-banner-since{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      color:#9aa3c4;
+      font-size:.78rem;
+      letter-spacing:.5px;
+    }
+    .pkg-banner-since i{color:var(--gold-light);}
+
+    @media (max-width:768px){
+      .pkg-banner{padding:38px 26px; text-align:left;}
+      .pkg-banner-action{width:100%;}
+      .pkg-banner-btn{width:100%; justify-content:center;}
+    }
+
+    /* ---------- Explore / Site Showcase (home page only) ---------- */
+    .explore-section{ margin:50px 0 46px; }
+    .explore-head{ text-align:center; margin-bottom:32px; }
+    .explore-head .eyebrow{ color:var(--gold); letter-spacing:2px; font-weight:600; font-size:.8rem; }
+    .explore-head h2{
+      color:var(--navy-dark);
+      font-size:clamp(1.5rem,3vw,2.1rem);
+      margin:10px 0 0;
+    }
+    .explore-grid{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:20px;
+    }
+    .explore-card{
+      position:relative;
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:12px;
+      background:linear-gradient(150deg, var(--navy-dark) 0%, var(--navy) 100%);
+      border-radius:var(--radius-lg);
+      padding:28px 22px;
+      text-decoration:none;
+      box-shadow:0 12px 28px rgba(16,26,63,.18);
+      transition:transform .25s ease, box-shadow .25s ease;
+    }
+    .explore-card::after{
+      content:"";
+      position:absolute;
+      top:-40px; right:-40px;
+      width:140px; height:140px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(217,169,94,.16) 0%, rgba(217,169,94,0) 70%);
+    }
+    .explore-card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 18px 38px rgba(16,26,63,.28);
+    }
+    .explore-icon{
+      position:relative;
+      z-index:1;
+      width:46px; height:46px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:50%;
+      background:rgba(217,169,94,.15);
+      border:1px solid rgba(217,169,94,.4);
+      color:var(--gold-light);
+      font-size:1.2rem;
+    }
+    .explore-card h3{
+      position:relative;
+      z-index:1;
+      color:#fff;
+      font-size:1.02rem;
+      margin:0;
+    }
+    .explore-card p{
+      position:relative;
+      z-index:1;
+      color:#c4cae0;
+      font-size:.8rem;
+      line-height:1.5;
+      margin:0;
+    }
+    .explore-card .explore-arrow{
+      position:relative;
+      z-index:1;
+      margin-top:auto;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      color:var(--gold-light);
+      font-weight:600;
+      font-size:.78rem;
+      transition:gap .2s ease;
+    }
+    .explore-card .explore-arrow svg{ width:14px; height:14px; }
+    .explore-card:hover .explore-arrow{ gap:10px; }
+
+    @media (max-width:992px){
+      .explore-grid{ grid-template-columns:repeat(3,1fr); }
+    }
+    @media (max-width:576px){
+      .explore-grid{ grid-template-columns:repeat(2,1fr); gap:14px; }
+      .explore-card{ padding:20px 16px; }
+    }
+  </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="./bootstrap-5.3.8/dist/css/bootstrap.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+  <div class="col-md-12">
+
+    
+
+    <header class="site-header">
+      <div class="container">
+        <a href="index.html" class="logo">Hameed <span>Studio</span></a>
+        <nav class="main-nav">
+          <a href="index.html" class="active">Home</a>
+          <a href="./coll.html">Collections</a>
+          <a href="products.html">Products</a>
+          <a href="packages.html">Packages</a>
+          <a href="about.html">About Us</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+        <div class="header-icons">
+          
+          <a href="cart.html" class="icon-btn" aria-label="Cart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 6h15l-1.5 9h-12z" />
+              <circle cx="9" cy="20" r="1" />
+              <circle cx="18" cy="20" r="1" />
+            </svg>
+            <span class="cart-count">0</span>
+          </a>
+        
+          <button class="hamburger" aria-label="Menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 6h18M3 12h18M3 18h18" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <nav class="mobile-nav">
+        <a href="index.html">Home</a>
+        <a href="coll.html">Collections</a>
+        <a href="products.html">Products</a>
+        <a href="packages.html">Packages</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+  <div>
+  <div class="info-strip">
+    <div class="container">
+      <div class="info-strip-inner">
+
+        <!-- Wedding Packages -->
+        <a href="packages.html" class="info-strip-item">
+          <i class="bi bi-heart-fill info-strip-icon"></i>
+          <span class="info-strip-text">
+            <span class="title">Wedding Packages <i class="bi bi-chevron-right"></i></span>
+            <small>Exclusive bridal deals</small>
+          </span>
+        </a>
+
+        <!-- Collections -->
+        <a href="coll.html" class="info-strip-item">
+          <i class="bi bi-collection-fill info-strip-icon"></i>
+          <span class="info-strip-text">
+            <span class="title">Collections <i class="bi bi-chevron-right"></i></span>
+            <small>Explore new arrivals</small>
+          </span>
+        </a>
+
+        <!-- Products -->
+        <a href="products.html" class="info-strip-item">
+          <i class="bi bi-bag-fill info-strip-icon"></i>
+          <span class="info-strip-text">
+            <span class="title">Products <i class="bi bi-chevron-right"></i></span>
+            <small>Browse full catalog</small>
+          </span>
+        </a>
+
+      </div>
+    </div>
+  </div>
+</div>
+    <!-- ============================================================
+     HERO — REBUILT
+     Slider is a real transform-based track: fixed 16:9 rectangle on
+     every screen size, works with touch swipe / mouse drag, plus
+     arrow buttons and dots (see the script near the bottom of this
+     file). To change images: swap the src on each .hero-slide img
+     below — keep photos roughly 16:9 so nothing looks cropped odd.
+     Text block: edit the heading/paragraph/button directly.
+     ============================================================ -->
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+  <div class="container-fluid">
+    <div class="hero-slider" id="heroSlider" aria-label="Featured gallery slider">
+      <div class="hero-slider-track" id="heroTrack">
+        <div class="hero-slide"><img src="h145.webp" alt="Featured gift collection" draggable="false"></div>
+        <div class="hero-slide"><img src="h146.webp" alt="Custom gift display" draggable="false"></div>
+        <div class="hero-slide"><img src="h143.webp" alt="Premium personalized gifts" draggable="false"></div>
+        <div class="hero-slide"><img src="h141.webp" alt="Elegant gift setup" draggable="false"></div>
+        <div class="hero-slide"><img src="h142.webp" alt="Gift box styling" draggable="false"></div>
+        <div class="hero-slide"><img src="h144.webp" alt="Personalized mug presentation" draggable="false"></div>
+      </div>
+
+      <button class="hero-slider-btn prev" type="button" aria-label="Previous image">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
+      </button>
+      <button class="hero-slider-btn next" type="button" aria-label="Next image">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+
+      <div class="hero-dots" id="heroDots"></div>
+    </div>
+
+   <div class="container">
+    <div class="hero-content">
+      <span class="hero-eyebrow">✨ Discover Our Collection</span>
+
+      <h1>Everything You Love, <em>All in One Place</em></h1>
+
+      <p>
+        Explore custom T-shirts, mugs, frames, badges, cushions,
+        keychains, and more. Browse every category and find the
+        perfect personalized product in just a few clicks.
+      </p>
+      <a href="./coll.html" class="btn btn-gold">View All Categories <i class="bi bi-arrow-right"></i></a>
+    </div></div>
+  </div>
+</section>
+
+
+
+
+
+<!-- ============== HERO END ============== -->
+    <main class="container">
+
+
+      <!-- <section class="section" id="featured">
+        <div class="section-head">
+          <span class="eyebrow">Handpicked For You</span>
+          <h2>14 August Special</h2>
+          <div class="divider-heart">♥</div>
+        </div>
+        <div class="product-grid square-cards" id="featured-grid"></div>
+      </section>
+
+      <div style="text-align: center;">
+        <a href="coll.html" class="btn fw-bold btn-outline-secondary" style="color: black;">Explore More Collections
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </a>
+      </div> -->
+      <section class="explore-section">
+        <div class="explore-head">
+          <span class="eyebrow">Find Your Way Around</span>
+          <h2>Explore PhotoHome Films & Photography</h2>
+        </div>
+        <div class="explore-grid">
+          
+           <a href="packages.html" class="explore-card">
+            <span class="explore-icon"><i class="bi bi-camera-fill"></i></span>
+            <h3>Packages</h3>
+            <p>Wedding & event photography and videography packages.</p>
+            <span class="explore-arrow">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </a>
+          <a href="coll.html" class="explore-card">
+            <span class="explore-icon"><i class="bi bi-collection-fill"></i></span>
+            <h3>Collections</h3>
+            <p>Browse curated gift collections for every occasion.</p>
+            <span class="explore-arrow">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </a>
+          <a href="products.html" class="explore-card">
+            <span class="explore-icon"><i class="bi bi-bag-fill"></i></span>
+            <h3>Products</h3>
+            <p>Mugs, frames, cushions & more — full catalog.</p>
+            <span class="explore-arrow">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </a>
+         
+          <a href="about.html" class="explore-card">
+            <span class="explore-icon"><i class="bi bi-award-fill"></i></span>
+            <h3>About Us</h3>
+            <p>Our story, craftsmanship & journey since 1982.</p>
+            <span class="explore-arrow">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </a>
+          <a href="contact.html" class="explore-card">
+            <span class="explore-icon"><i class="bi bi-headset"></i></span>
+            <h3>Contact</h3>
+            <p>Reach out, visit a store or track your order.</p>
+            <span class="explore-arrow">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </a>
+        </div>
+      </section>
+
+<div class="pkg-banner">
+        <div class="pkg-banner-text">
+          <span class="eyebrow">Event Coverage</span>
+          <h2>Book Photography &amp; Videography For Your Next Event</h2>
+          <p>From walima and mehndi shoots to corporate events — get professional coverage with albums, drone footage and same-day highlights. Choose a ready-made package or ask us for a custom quote.</p>
+          <div class="pkg-banner-tags">
+            <span><i class="bi bi-camera-fill"></i> Photography</span>
+            <span><i class="bi bi-camera-video-fill"></i> Videography</span>
+            <span><i class="bi bi-book-fill"></i> Albums</span>
+            <span><i class="bi bi-airplane-fill"></i> Drone Coverage</span>
+          </div>
+        </div>
+        <div class="pkg-banner-action">
+          <a href="packages.html" class="pkg-banner-btn">
+            View Packages
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <div class="pkg-banner-since"> <i class="bi bi-award-fill"></i> Trusted event coverage since 1982</div>
+        </div>
+      </div>
+
+     
+
+      <div class="about-banner">
+        <div class="about-banner-text">
+          <span class="eyebrow">Our Story</span>
+          <h2>Behind Every Frame, A Story Worth Knowing</h2>
+          <p>Since 1982, Hameed Studio has been turning everyday photos into keepsakes people cherish. Discover our journey, our mission, and the craftsmanship behind every product.</p>
+        </div>
+        <div class="about-banner-action">
+          <a href="about.html" class="about-banner-btn">
+            Discover Our Story
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+
+       <div class="feature-strip">
+        <div class="feature-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="1" y="7" width="14" height="10" rx="1" />
+            <path d="M15 10h4l3 3v4h-7z" />
+            <circle cx="6" cy="19" r="1.6" />
+            <circle cx="18" cy="19" r="1.6" />
+          </svg>
+          <div><b>Fast & Reliable Delivery</b><span>Get your order quickly at your doorstep</span></div>
+        </div>
+        <div class="feature-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z" />
+          </svg>
+          <div><b>Premium Quality</b><span>High quality materials & long lasting prints</span></div>
+        </div>
+        <div class="feature-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 5a2 2 0 012-2h2l2 5-2 1a11 11 0 006 6l1-2 5 2v2a2 2 0 01-2 2A16 16 0 013 5z" />
+          </svg>
+          <div><b>24/7 Customer Support</b><span>We're here to help anytime you need</span></div>
+        </div>
+        <div class="feature-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4v6h6M20 20v-6h-6" />
+            <path d="M5 15a8 8 0 0014-4M19 9a8 8 0 00-14 4" />
+          </svg>
+          <div><b>Easy Returns</b><span>Hassle free returns within 7 days</span></div>
+        </div>
+      </div>
+
+      
+
+      <div class="newsletter" >
+        <h3>Stay Updated</h3>
+        <p>Subscribe to get special offers & updates</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Subscribed successfully');">
+          <input type="email" placeholder="Enter your email" required>
+          <button class="btn fw-bold" type="submit" style="color: #fff;  border:1px solid white;">Subscribe</button>
+        </form>
+      </div>
+
+    </main>
+
+    <footer class="site-footer" id="footer-section">
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+                <a href="index.html" class="logo" style="color: #d9a95e;">Photo <span style="color: #fff;">Home</span></a>
+            <p>Powered By Hameed Photo Studio <br> Since 1982</p>
+                <p>Personalised mugs, frames and gifts crafted with care — for every memory worth keeping.</p>
+            <div class="social-row">
+              <a href="https://www.facebook.com/share/1FpU9w5zaE/?mibextid=wwXIfr" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2">
+                  <path d="M14 9h3V6h-3a4 4 0 00-4 4v2H7v3h3v6h3v-6h3l1-3h-4v-2a1 1 0 011-1z" />
+                </svg></a>
+              <a href="https://www.instagram.com/photohome92?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2">
+                  <rect x="3" y="3" width="18" height="18" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle cx="17.5" cy="6.5" r="1" />
+                </svg></a>
+              <a href="https://www.tiktok.com/@mubbasharhameed?_r=1&_d=el9mgd0d287khg&sec_uid=MS4wLjABAAAAEWGDdGhFYpXPYLI64K3etRBabU9BoQK030XQkEzIUqg5eX-70fOCUuhP2rF45krd&share_author_id=6718066188109317126&sharer_language=en&source=h5_m&u_code=d7ci6beak2mieh&item_author_type=1&utm_source=copy&tt_from=copy&enable_checksum=1&utm_medium=ios&share_link_id=FFA231FA-F292-4E8D-B7E1-EBB115551BD9&user_id=6718066188109317126&sec_user_id=MS4wLjABAAAAEWGDdGhFYpXPYLI64K3etRBabU9BoQK030XQkEzIUqg5eX-70fOCUuhP2rF45krd&social_share_type=4&ug_btm=b8727,b0&utm_campaign=client_share&share_app_id=1233" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2">
+                  <path d="M14 4v10.5a3.5 3.5 0 11-3-3.46" />
+                  <path d="M14 4a5 5 0 005 5" />
+                </svg></a>
+              <a href="https://youtube.com/@hameedphotostudio9298?si=7_X4aQQ2ddpOKIj0" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2">
+                  <rect x="2" y="6" width="20" height="12" rx="3" />
+                  <path d="M11 10l4 2-4 2z" />
+                </svg></a>
+            </div>
+          </div>
+          <div>
+            <h4>Shop</h4>
+            <ul>
+              <li><a href="products.html">Photo Mugs</a></li>
+              <li><a href="products.html">Photo Frames</a></li>
+              <li><a href="products.html">Gift Combos</a></li>
+              <li><a href="packages.html">Packages</a></li>
+              <li><a href="products.html">Special Offers</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Company</h4>
+            <ul>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="contact.html">Track Order</a></li>
+              <li><a href="about.html">FAQs</a></li>
+            </ul>
+          </div>
+         
+        </div>
+
+        <div class="footer-stores">
+          <h4>Stores</h4>
+          <div class="store-grid">
+            <a class="store-item" href="https://maps.app.goo.gl/Ns7Nab46HfmEYiUe8" target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span class="store-name">Shaheenabad , GRW</span>
+              <span class="store-view">View Location <i class="bi bi-arrow-up-right"></i></span>
+            </a>
+            <a class="store-item" href="https://maps.app.goo.gl/9WUnMPao4esh6DT9A" target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span class="store-name">Civic Centre , GRW</span>
+              <span class="store-view">View Location <i class="bi bi-arrow-up-right"></i></span>
+            </a>
+            <a class="store-item" href="https://maps.app.goo.gl/9Dsx5iBLH7k877bQ9" target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span class="store-name"> Opp. General Bus Stand, G.T. Road, GRW</span>
+              <span class="store-view">View Location <i class="bi bi-arrow-up-right"></i></span>
+            </a>
+            <a class="store-item" href="https://maps.app.goo.gl/rNb89twX9jYsZD4z9" target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span class="store-name">Sui Gas Road, GRW</span>
+              <span class="store-view">View Location <i class="bi bi-arrow-up-right"></i></span>
+            </a>
+            <a class="store-item" href="https://maps.app.goo.gl/7EHVBnwbSZJgqomSA" target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span class="store-name">Near KING'S Mall , GRW</span>
+              <span class="store-view">View Location <i class="bi bi-arrow-up-right"></i></span>
+            </a>
+            <a class="store-item" href="https://maps.app.goo.gl/yhW7ZsPJetTutuQg9" target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span class="store-name">31-C, Small Industrial Estate-1, GRW</span>
+              <span class="store-view">View Location <i class="bi bi-arrow-up-right"></i></span>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-bottom">© 2026 Hameed Studio. All rights reserved.</div>
+      </div>
+    </footer>
+
+  </div>
+
+    <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // ===== HERO SLIDER — touch swipe, drag, buttons, dots =====
+    (function () {
+      const slider = document.getElementById('heroSlider');
+      if (!slider) return;
+
+      const track = document.getElementById('heroTrack');
+      const slides = Array.from(track.children);
+      const dotsWrap = document.getElementById('heroDots');
+      const prevBtn = slider.querySelector('.hero-slider-btn.prev');
+      const nextBtn = slider.querySelector('.hero-slider-btn.next');
+
+      let index = 0;
+      let startX = 0;
+      let deltaX = 0;
+      let dragging = false;
+      let autoplayTimer = null;
+
+      // build dots
+      slides.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'hero-dot' + (i === 0 ? ' active' : '');
+        dot.type = 'button';
+        dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+        dot.addEventListener('click', () => goTo(i));
+        dotsWrap.appendChild(dot);
+      });
+      const dots = Array.from(dotsWrap.children);
+
+      function update(withTransition = true) {
+        track.style.transition = withTransition ? '' : 'none';
+        track.style.transform = 'translateX(' + (-index * 100) + '%)';
+        dots.forEach((d, i) => d.classList.toggle('active', i === index));
+      }
+
+      function goTo(i) {
+        index = (i + slides.length) % slides.length;
+        update();
+        restartAutoplay();
+      }
+
+      function next() { goTo(index + 1); }
+      function prev() { goTo(index - 1); }
+
+      prevBtn.addEventListener('click', prev);
+      nextBtn.addEventListener('click', next);
+
+      // ---- touch swipe ----
+      track.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        dragging = true;
+        track.style.transition = 'none';
+        stopAutoplay();
+      }, { passive: true });
+
+      track.addEventListener('touchmove', (e) => {
+        if (!dragging) return;
+        deltaX = e.touches[0].clientX - startX;
+        const percent = (deltaX / slider.offsetWidth) * 100;
+        track.style.transform = 'translateX(' + (-index * 100 + percent) + '%)';
+      }, { passive: true });
+
+      track.addEventListener('touchend', () => {
+        dragging = false;
+        track.style.transition = '';
+        if (Math.abs(deltaX) > slider.offsetWidth * 0.15) {
+          deltaX < 0 ? next() : prev();
+        } else {
+          update();
+        }
+        deltaX = 0;
+        restartAutoplay();
+      });
+
+      // ---- mouse drag (desktop) ----
+      track.addEventListener('mousedown', (e) => {
+        startX = e.clientX;
+        dragging = true;
+        track.style.transition = 'none';
+        stopAutoplay();
+      });
+      window.addEventListener('mousemove', (e) => {
+        if (!dragging) return;
+        deltaX = e.clientX - startX;
+        const percent = (deltaX / slider.offsetWidth) * 100;
+        track.style.transform = 'translateX(' + (-index * 100 + percent) + '%)';
+      });
+      window.addEventListener('mouseup', () => {
+        if (!dragging) return;
+        dragging = false;
+        track.style.transition = '';
+        if (Math.abs(deltaX) > slider.offsetWidth * 0.15) {
+          deltaX < 0 ? next() : prev();
+        } else {
+          update();
+        }
+        deltaX = 0;
+        restartAutoplay();
+      });
+
+      // ---- autoplay ----
+      function startAutoplay() {
+        autoplayTimer = setInterval(next, 2500);
+      }
+      function stopAutoplay() {
+        clearInterval(autoplayTimer);
+      }
+      function restartAutoplay() {
+        stopAutoplay();
+        startAutoplay();
+      }
+
+      update(false);
+      startAutoplay();
+    })();
+
+    document.querySelectorAll('.scroll-link').forEach(link => {
+      link.addEventListener('click', (event) => {
+        const targetId = link.getAttribute('href');
+        if (targetId && targetId.startsWith('#')) {
+          event.preventDefault();
+          const target = document.querySelector(targetId);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      });
+    });
+
+    const dealIds = ["deal-14-august-shirt", "deal-14-august-badge", "deal-14-august-mug", "deal-magic-cushion"];
+    const dealItems = dealIds.map(id => PRODUCTS.find(p => p.id === id)).filter(Boolean);
+    renderProductGrid(document.getElementById("featured-grid"), dealItems);
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="icon" type="image/png" href="f.png">
+<title>Your Cart — Hameed Photo Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+</head>
+<body>
+  <header class="site-header">
+      <div class="container">
+        <a href="index.html" class="logo">Hameed <span>Studio</span></a>
+        <nav class="main-nav">
+          <a href="index.html" >Home</a>
+          <a href="./coll.html">Collections</a>
+          <a href="products.html">Products</a>
+          <a href="packages.html">Packages</a>
+          <a href="about.html">About Us</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+        <div class="header-icons">
+          
+          <a href="cart.html" class="icon-btn" aria-label="Cart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 6h15l-1.5 9h-12z" />
+              <circle cx="9" cy="20" r="1" />
+              <circle cx="18" cy="20" r="1" />
+            </svg>
+            <span class="cart-count">0</span>
+          </a>
+        
+          <button class="hamburger" aria-label="Menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 6h18M3 12h18M3 18h18" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <nav class="mobile-nav">
+        <a href="index.html">Home</a>
+        <a href="coll.html">Collections</a>
+        <a href="products.html">Products</a>
+        <a href="packages.html">Packages</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+<div class="container">
+  <div class="page-title-row">
+    <div>
+      <h1>Your Cart</h1>
+      <div class="breadcrumb" style="padding-top:6px;">
+        <a href="index.html">Home</a><span class="sep">›</span><span class="current">Cart</span>
+      </div>
+    </div>
+    <a href="products.html" class="btn btn-outline">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+      Continue Shopping
+    </a>
+  </div>
+
+  <div id="cart-container" style="padding-bottom:60px;"></div>
+
+  <!-- Customer Info Modal -->
+  <div id="checkout-modal" class="modal-overlay" style="display:none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Complete Your Order</h2>
+        <button class="modal-close" onclick="closeCheckoutModal()">&times;</button>
+      </div>
+      <form id="checkout-form" onsubmit="handleCheckoutSubmit(event)">
+        <div class="form-group">
+          <label for="customer-name">Full Name *</label>
+          <input type="text" id="customer-name" name="name" required placeholder="Enter your full name">
+        </div>
+        <div class="form-group">
+          <label for="customer-email">Email Address *</label>
+          <input type="email" id="customer-email" name="email" required placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label for="customer-phone">Phone Number *</label>
+          <input type="tel" id="customer-phone" name="phone" required placeholder="Your phone number">
+        </div>
+        <div class="form-group" id="delivery-address-group">
+          <label for="customer-address">Delivery Address *</label>
+          <textarea id="customer-address" name="address" required placeholder="Enter your complete delivery address" rows="3"></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-outline" onclick="closeCheckoutModal()">Cancel</button>
+          <button type="submit" class="btn btn-gold">Complete Order</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+  <footer class="site-footer" id="footer-section">
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+                <a href="index.html" class="logo" style="color: #d9a95e;">Photo <span style="color: #fff;">Home</span></a>
+            <p>Powered By Hameed Photo Studio <br> Since 1982</p>
+                <p>Personalised mugs, frames and gifts crafted with care — for every memory worth keeping.</p>
+            <div class="social-row">
+              <a href="https://www.facebook.com/share/1FpU9w5zaE/?mibextid=wwXIfr" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2">
+                  <path d="M14 9h3V6h-3a4 4 0 00-4 4v2H7v3h3v6h3v-6h3l1-3h-4v-2a1 1 0 011-1z" />
+                </svg></a>
+              <a href="https://www.instagram.com/photohome92?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2">
+                  <rect x="3" y="3" width="18" height="18" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle cx="17.5" cy="6.5" r="1" />
+                </svg></a>
+              <a href="https://www.tiktok.com/@mubbasharhameed?_r=1&_d=el9mgd0d287khg&sec_uid=MS4wLjABAAAAEWGDdGhFYpXPYLI64K3etRBabU9BoQK030XQkEzIUqg5eX-70fOCUuhP2rF45krd&share_author_id=6718066188109317126&sharer_language=en&source=h5_m&u_code=d7ci6beak2mieh&item_author_type=1&utm_source=copy&tt_from=copy&enable_checksum=1&utm_medium=ios&share_link_id=FFA231FA-F292-4E8D-B7E1-EBB115551BD9&user_id=6718066188109317126&sec_user_id=MS4wLjABAAAAEWGDdGhFYpXPYLI64K3etRBabU9BoQK030XQkEzIUqg5eX-70fOCUuhP2rF45krd&social_share_type=4&ug_btm=b8727,b0&utm_campaign=client_share&share_app_id=1233" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2">
+                  <path d="M14 4v10.5a3.5 3.5 0 11-3-3.46" />
+                  <path d="M14 4a5 5 0 005 5" />
+                </svg></a>
+              <a href="https://youtube.com/@hameedphotostudio9298?si=7_X4aQQ2ddpOKIj0" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2">
+                  <rect x="2" y="6" width="20" height="12" rx="3" />
+                  <path d="M11 10l4 2-4 2z" />
+                </svg></a>
+            </div>
+          </div>
+          <div>
+            <h4>Shop</h4>
+            <ul>
+              <li><a href="products.html">Photo Mugs</a></li>
+              <li><a href="products.html">Photo Frames</a></li>
+              <li><a href="products.html">Gift Combos</a></li>
+              <li><a href="packages.html">Packages</a></li>
+              <li><a href="products.html">Special Offers</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Company</h4>
+            <ul>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="contact.html">Track Order</a></li>
+              <li><a href="about.html">FAQs</a></li>
+            </ul>
+          </div>
+         
+        </div>
+
+        <div class="footer-stores">
+          <h4>Stores</h4>
+          <div class="store-grid">
+            <a class="store-item" href="https://maps.app.goo.gl/Ns7Nab46HfmEYiUe8" target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span class="store-name">Shaheenabad , GRW</span>
+              <span class="store-view">View Location <i class="bi bi-arrow-up-right"></i></span>
+            </a>
+            <a class="store-item" href="https://maps.app.goo.gl/9WUnMPao4esh6DT9A" target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span class="store-name">Civic Centre , GRW</span>
+              <span class="store-view">View Location <i class="bi bi-arrow-up-right"></i></span>
+            </a>
+            <a class="store-item" href="https://maps.app.goo.gl/9Dsx5iBLH7k877bQ9" target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span class="store-name"> Opp. General Bus Stand, G.T. Road, GRW</span>
+              <span class="store-view">View Location <i class="bi bi-arrow-up-right"></i></span>
+            </a>
+            <a class="store-item" href="https://maps.app.goo.gl/rNb89twX9jYsZD4z9" target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span class="store-name">Sui Gas Road, GRW</span>
+              <span class="store-view">View Location <i class="bi bi-arrow-up-right"></i></span>
+            </a>
+            <a class="store-item" href="https://maps.app.goo.gl/7EHVBnwbSZJgqomSA" target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span class="store-name">Near KING'S Mall , GRW</span>
+              <span class="store-view">View Location <i class="bi bi-arrow-up-right"></i></span>
+            </a>
+            <a class="store-item" href="https://maps.app.goo.gl/yhW7ZsPJetTutuQg9" target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span class="store-name">31-C, Small Industrial Estate-1, GRW</span>
+              <span class="store-view">View Location <i class="bi bi-arrow-up-right"></i></span>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-bottom">© 2026 Hameed Studio. All rights reserved.</div>
+      </div>
+    </footer>
+
+
+<script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/main.js"></script>
+<script>
+let appliedPromo = null;
+
+function populatePickupBranches() {
+  const select = document.getElementById("pickup-branch");
+  if (!select) return;
+  select.innerHTML = '<option value="">Choose a branch</option>' + getPickupBranches().map(branch => `<option value="${branch}">${branch}</option>`).join("");
+  select.value = getPickupBranch();
+}
+
+function syncDeliveryFormState() {
+  const addressGroup = document.getElementById("delivery-address-group");
+  const addressInput = document.getElementById("customer-address");
+
+  if (addressGroup) addressGroup.style.display = getDeliveryService() === "pickup" ? "none" : "block";
+  if (addressInput) {
+    if (getDeliveryService() === "pickup") {
+      addressInput.removeAttribute("required");
+    } else {
+      addressInput.setAttribute("required", "required");
+    }
+  }
+}
+
+// Modal functions
+function openCheckoutModal() {
+  syncDeliveryFormState();
+  document.getElementById("checkout-modal").style.display = "flex";
+}
+
+function closeCheckoutModal() {
+  document.getElementById("checkout-modal").style.display = "none";
+  const form = document.getElementById("checkout-form");
+  if (form) {
+    form.reset();
+    syncDeliveryFormState();
+  }
+}
+
+function handleCheckoutSubmit(event) {
+  event.preventDefault();
+  
+  const name = document.getElementById("customer-name").value.trim();
+  const email = document.getElementById("customer-email").value.trim();
+  const phone = document.getElementById("customer-phone").value.trim();
+  const address = document.getElementById("customer-address").value.trim();
+  const pickupBranch = getPickupBranch();
+  const deliveryService = getDeliveryService();
+  
+  if (!name || !email || !phone) {
+    showToast("Please fill in all fields");
+    return;
+  }
+
+  if (deliveryService === "home-delivery" && !address) {
+    showToast("Please enter your delivery address");
+    return;
+  }
+
+  if (deliveryService === "pickup" && !pickupBranch) {
+    showToast("Please select a pickup branch");
+    return;
+  }
+
+  // Build cart summary for WhatsApp message
+  const cart = getCart();
+  const cartSummary = cart.map(item => 
+    `${item.name} x${item.qty} - ${formatRs(item.price * item.qty)}`
+  ).join("\n");
+  
+  const subtotal = cartSubtotal();
+  const discount = appliedPromo ? PROMO_CODES[appliedPromo] : 0;
+  const discountedSubtotal = Math.max(0, subtotal - discount);
+  const deliveryCharges = cartDeliveryCharges();
+  const tax = cartTax(discountedSubtotal);
+  const total = discountedSubtotal + deliveryCharges + tax;
+  const serviceLabel = cartDeliveryLabel();
+  const pickupLine = deliveryService === "pickup" ? `\nPickup Branch: ${pickupBranch}` : "";
+
+  // Prepare message
+  const message = `
+*New Order from Hameed Studio*
+
+*Customer Details:*
+Name: ${name}
+Email: ${email}
+Phone: ${phone}
+Address: ${address}
+
+*Order Items:*
+${cartSummary}
+
+Subtotal: ${formatRs(subtotal)}
+${discount ? `Promo Code: ${appliedPromo}
+Discount: -${formatRs(discount)}` : ""}
+Delivery Method: ${serviceLabel}${pickupLine}
+Delivery Charges: ${formatRs(deliveryCharges)}
+Tax: ${formatRs(tax)}
+*Total: ${formatRs(total)}*
+  `.trim();
+
+  // Encode for WhatsApp URL
+  const encodedMessage = encodeURIComponent(message);
+  const whatsappUrl = `https://wa.me/923338181082?text=${encodedMessage}`;
+  
+  // Clear cart and redirect
+  clearCart();
+  closeCheckoutModal();
+  showToast("Redirecting to WhatsApp...");
+  setTimeout(() => {
+    window.location.href = whatsappUrl;
+  }, 500);
+}
+
+function renderCartPage() {
+  const cart = getCart();
+  const container = document.getElementById("cart-container");
+
+  if (cart.length === 0) {
+    container.innerHTML = `
+      <div class="empty-cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg>
+        <h3>Your cart is empty</h3>
+        <p>Looks like you haven't added anything to your cart yet.</p>
+        <a href="products.html" class="btn btn-primary">Start Shopping</a>
+      </div>`;
+    return;
+  }
+
+  const subtotal = cartSubtotal();
+  const discount = appliedPromo ? PROMO_CODES[appliedPromo] : 0;
+  const discountedSubtotal = Math.max(0, subtotal - discount);
+  const deliveryCharges = cartDeliveryCharges();
+  const tax = cartTax(discountedSubtotal);
+  const total = discountedSubtotal + deliveryCharges + tax;
+  const itemCount = cartCount();
+  const service = getDeliveryService();
+
+  container.innerHTML = `
+    <div class="cart-layout">
+      <div>
+        <div class="cart-items">
+          ${cart.map(item => `
+            <div class="cart-row">
+              <div class="cart-thumb">
+                ${item.image ? `<img src="${item.image}" alt="${item.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">` : ""}
+                <div class="cart-thumb-fallback" style="display:${item.image ? "none" : "flex"};">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5L5 19"/></svg>
+                </div>
+              </div>
+              <div class="cart-item-info">
+                <h3>${item.name}</h3>
+                ${item.variantLabel ? `<div class="variant-tags">${item.variantLabel}</div>` : ""}
+                <div class="price">${formatRs(item.price)}</div>
+              </div>
+              <div class="cart-qty-col">
+                <div class="qty-control">
+                  <button type="button" data-key="${item.key}" data-action="dec">−</button>
+                  <input type="text" value="${item.qty}" readonly>
+                  <button type="button" data-key="${item.key}" data-action="inc">+</button>
+                </div>
+              </div>
+              <button class="remove-btn" data-key="${item.key}" data-action="remove" aria-label="Remove item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0l-1 14a2 2 0 01-2 2H7a2 2 0 01-2-2L4 6"/></svg>
+              </button>
+            </div>
+          `).join("")}
+        </div>
+
+        <div class="promo-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.6 12.4L12.4 20.6a2 2 0 01-2.8 0l-8.2-8.2V3h9.4l8.2 8.2a2 2 0 010 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>
+          <span style="font-weight:600;font-size:.9rem;white-space:nowrap;">Have a promo code?</span>
+          <input type="text" id="promo-input" placeholder="Enter promo code (try DAD10)">
+          <button class="btn btn-primary" id="apply-promo">Apply</button>
+        </div>
+      </div>
+
+      <div>
+        <div class="order-summary">
+          <h3>Order Summary</h3>
+          <div class="delivery-option-box" style="margin-bottom:16px;padding:12px 14px;border:1px solid #e5e5e5;border-radius:12px;background:#faf8f2;">
+            <div style="font-weight:700;margin-bottom:8px;">Delivery Method</div>
+            <label style="display:flex;align-items:center;gap:8px;margin-bottom:8px;font-weight:600;">
+              <input type="radio" name="delivery-service" value="home-delivery" ${service === "home-delivery" ? "checked" : ""}>
+              Home Delivery
+            </label>
+            <label style="display:flex;align-items:center;gap:8px;margin-bottom:10px;font-weight:600;">
+              <input type="radio" name="delivery-service" value="pickup" ${service === "pickup" ? "checked" : ""}>
+              Pickup Service
+            </label>
+            ${service === "pickup" ? `<div style="display:flex;flex-direction:column;gap:6px;">
+              <label for="summary-pickup-branch" style="font-size:.9rem;font-weight:600;">Pickup Branch</label>
+              <select id="summary-pickup-branch" style="padding:10px 12px;border:1px solid #ddd;border-radius:8px;">
+                <option value="">Choose a branch</option>
+                ${getPickupBranches().map(branch => `<option value="${branch}" ${getPickupBranch() === branch ? "selected" : ""}>${branch}</option>`).join("")}
+              </select>
+            </div>` : ""}
+          </div>
+          <div class="summary-line"><span>Subtotal (${itemCount} item${itemCount !== 1 ? "s" : ""})</span><span>${formatRs(subtotal)}</span></div>
+          ${discount ? `<div class="summary-line discount"><span>Discount (${appliedPromo})</span><span>− ${formatRs(discount)}</span></div>` : ""}
+          <div class="summary-line"><span>Delivery Charges</span><span>${formatRs(deliveryCharges)}</span></div>
+          <div class="summary-line"><span>Tax</span><span>${formatRs(tax)}</span></div>
+          <div class="summary-total"><span>Total</span><span>${formatRs(total)}</span></div>
+          <div class="summary-note">(Inclusive of all taxes)</div>
+          <button class="btn btn-primary btn-block" id="checkout-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
+            Proceed to Checkout
+          </button>
+        </div>
+
+        <div class="trust-mini">
+          <div class="feature-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg><div><b>Secure Checkout</b><span>100% safe & secure payments</span></div></div>
+          <div class="feature-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="7" width="14" height="10" rx="1"/><path d="M15 10h4l3 3v4h-7z"/><circle cx="6" cy="19" r="1.6"/><circle cx="18" cy="19" r="1.6"/></svg><div><b>Fast Delivery</b><span>Get your order quickly</span></div></div>
+          <div class="feature-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4v6h6M20 20v-6h-6"/><path d="M5 15a8 8 0 0014-4M19 9a8 8 0 00-14 4"/></svg><div><b>Easy Returns</b><span>Hassle free returns within 7 days</span></div></div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  container.querySelectorAll('input[name="delivery-service"]').forEach(radio => {
+    radio.addEventListener("change", () => {
+      setDeliveryService(radio.value);
+      if (radio.value !== "pickup") {
+        setPickupBranch("");
+      }
+      renderCartPage();
+    });
+  });
+
+  const summaryPickupBranch = document.getElementById("summary-pickup-branch");
+  if (summaryPickupBranch) {
+    summaryPickupBranch.addEventListener("change", (event) => {
+      setPickupBranch(event.target.value);
+      renderCartPage();
+    });
+  }
+
+  container.querySelectorAll("[data-action]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const key = btn.dataset.key;
+      const item = getCart().find(i => i.key === key);
+      if (!item) return;
+      if (btn.dataset.action === "inc") setQty(key, item.qty + 1);
+      if (btn.dataset.action === "dec") setQty(key, item.qty - 1);
+      if (btn.dataset.action === "remove") removeFromCart(key);
+      renderCartPage();
+    });
+  });
+
+  document.getElementById("apply-promo").addEventListener("click", () => {
+    const code = document.getElementById("promo-input").value.trim().toUpperCase();
+    if (PROMO_CODES[code]) {
+      appliedPromo = code;
+      showToast(`Promo code ${code} applied`);
+    } else {
+      showToast("Invalid promo code");
+    }
+    renderCartPage();
+  });
+
+  document.getElementById("checkout-btn").addEventListener("click", () => {
+    openCheckoutModal();
+  });
+}
+
+renderCartPage();
+</script>
+</body>
+</html>

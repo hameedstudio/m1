@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="f.png">
+<title> Products — Hameed Photo Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+      <div class="container">
+        <a href="index.html" class="logo">Hameed <span>Studio</span></a>
+        <nav class="main-nav">
+          <a href="index.html" >Home</a>
+          <a href="./coll.html">Collections</a>
+          <a href="products.html" class="active">Products</a>
+          <a href="packages.html">Packages</a>
+          <a href="about.html">About Us</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+        <div class="header-icons">
+          
+          <a href="cart.html" class="icon-btn" aria-label="Cart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 6h15l-1.5 9h-12z" />
+              <circle cx="9" cy="20" r="1" />
+              <circle cx="18" cy="20" r="1" />
+            </svg>
+            <span class="cart-count">0</span>
+          </a>
+        
+          <button class="hamburger" aria-label="Menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 6h18M3 12h18M3 18h18" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <nav class="mobile-nav">
+        <a href="index.html">Home</a>
+        <a href="coll.html">Collections</a>
+        <a href="products.html">Products</a>
+        <a href="packages.html">Packages</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+<div class="container">
+  <div class="breadcrumb">
+    <a href="index.html">Home</a><span class="sep">›</span><span class="current">Products</span>
+  </div>
+  <div class="page-title-row">
+    <h1>All Products</h1>
+  </div>
+
+  <div class="products-layout">
+    <div class="chip-row filter-row" id="category-filter-row"></div>
+    <div class="product-grid" id="all-products-grid"></div>
+  </div>
+</div>
+
+     <footer class="site-footer" id="footer-section">
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+                <a href="index.html" class="logo" style="color: #d9a95e;">Photo <span style="color: #fff;">Home</span></a>
+            <p>Powered By Hameed Photo Studio <br> Since 1982</p>
+                <p>Personalised mugs, frames and gifts crafted with care — for every memory worth keeping.</p>
+            <div class="social-row">
+              <a href="https://www.facebook.com/share/1FpU9w5zaE/?mibextid=wwXIfr" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2">
+                  <path d="M14 9h3V6h-3a4 4 0 00-4 4v2H7v3h3v6h3v-6h3l1-3h-4v-2a1 1 0 011-1z" />
+                </svg></a>
+              <a href="https://www.instagram.com/photohome92?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2">
+                  <rect x="3" y="3" width="18" height="18" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle cx="17.5" cy="6.5" r="1" />
+                </svg></a>
+              <a href="https://www.tiktok.com/@mubbasharhameed?_r=1&_d=el9mgd0d287khg&sec_uid=MS4wLjABAAAAEWGDdGhFYpXPYLI64K3etRBabU9BoQK030XQkEzIUqg5eX-70fOCUuhP2rF45krd&share_author_id=6718066188109317126&sharer_language=en&source=h5_m&u_code=d7ci6beak2mieh&item_author_type=1&utm_source=copy&tt_from=copy&enable_checksum=1&utm_medium=ios&share_link_id=FFA231FA-F292-4E8D-B7E1-EBB115551BD9&user_id=6718066188109317126&sec_user_id=MS4wLjABAAAAEWGDdGhFYpXPYLI64K3etRBabU9BoQK030XQkEzIUqg5eX-70fOCUuhP2rF45krd&social_share_type=4&ug_btm=b8727,b0&utm_campaign=client_share&share_app_id=1233" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2">
+                  <path d="M14 4v10.5a3.5 3.5 0 11-3-3.46" />
+                  <path d="M14 4a5 5 0 005 5" />
+                </svg></a>
+              <a href="https://youtube.com/@hameedphotostudio9298?si=7_X4aQQ2ddpOKIj0" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2">
+                  <rect x="2" y="6" width="20" height="12" rx="3" />
+                  <path d="M11 10l4 2-4 2z" />
+                </svg></a>
+            </div>
+          </div>
+          <div>
+            <h4>Shop</h4>
+            <ul>
+              <li><a href="products.html">Photo Mugs</a></li>
+              <li><a href="products.html">Photo Frames</a></li>
+              <li><a href="products.html">Gift Combos</a></li>
+              <li><a href="packages.html">Packages</a></li>
+              <li><a href="products.html">Special Offers</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Company</h4>
+            <ul>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="contact.html">Track Order</a></li>
+              <li><a href="about.html">FAQs</a></li>
+            </ul>
+          </div>
+         
+        </div>
+
+        <div class="footer-stores">
+          <h4>Stores</h4>
+          <div class="store-grid">
+            <a class="store-item" href="https://maps.app.goo.gl/Ns7Nab46HfmEYiUe8" target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span class="store-name">Shaheenabad , GRW</span>
+              <span class="store-view">View Location <i class="bi bi-arrow-up-right"></i></span>
+            </a>
+            <a class="store-item" href="https://maps.app.goo.gl/9WUnMPao4esh6DT9A" target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span class="store-name">Civic Centre , GRW</span>
+              <span class="store-view">View Location <i class="bi bi-arrow-up-right"></i></span>
+            </a>
+            <a class="store-item" href="https://maps.app.goo.gl/9Dsx5iBLH7k877bQ9" target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span class="store-name"> Opp. General Bus Stand, G.T. Road, GRW</span>
+              <span class="store-view">View Location <i class="bi bi-arrow-up-right"></i></span>
+            </a>
+            <a class="store-item" href="https://maps.app.goo.gl/rNb89twX9jYsZD4z9" target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span class="store-name">Sui Gas Road, GRW</span>
+              <span class="store-view">View Location <i class="bi bi-arrow-up-right"></i></span>
+            </a>
+            <a class="store-item" href="https://maps.app.goo.gl/7EHVBnwbSZJgqomSA" target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span class="store-name">Near KING'S Mall , GRW</span>
+              <span class="store-view">View Location <i class="bi bi-arrow-up-right"></i></span>
+            </a>
+            <a class="store-item" href="https://maps.app.goo.gl/yhW7ZsPJetTutuQg9" target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span class="store-name">31-C, Small Industrial Estate-1, GRW</span>
+              <span class="store-view">View Location <i class="bi bi-arrow-up-right"></i></span>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-bottom">© 2026 Hameed Studio. All rights reserved.</div>
+      </div>
+    </footer>
+
+
+<script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/main.js"></script>
+<script>
+  const categories = [
+    { key: "all", label: "All Products" },
+    { key: "Deals", label: "Deals" },
+    { key: "Mugs", label: "Mugs" },
+    { key: "Cushion", label: "Cushion" },
+    { key: "Frames", label: "Frames" },
+    { key: "Shirts", label: "Shirts" },
+    { key: "Albums", label: "Albums" },
+    { key: "Lunch boxes and waterbottles", label: "Lunch boxes and waterbottles" },
+    { key: "Wallets", label: "Wallets" },
+    { key: "Jewellery items", label: "Jewellery items" },
+    { key: "Pens", label: "Pens" },
+    { key: "Key ring", label: "Key ring" },
+    { key: "Badge", label: "Badge" },
+    { key: "Mobile cover", label: "Mobile cover" }
+  ];
+
+  const filterRow = document.getElementById("category-filter-row");
+  const allGrid = document.getElementById("all-products-grid");
+  const params = new URLSearchParams(location.search);
+  let activeCategory = categories.find(c => c.key === params.get("category"))?.key || "all";
+
+  function renderCategoryFilters() {
+    filterRow.innerHTML = categories.map(category => `
+      <a href="#" class="chip ${category.key === activeCategory ? "active" : ""}" data-category="${category.key}">
+        <b>${category.label}</b>
+      </a>
+    `).join("");
+
+    filterRow.querySelectorAll("[data-category]").forEach(button => {
+      button.addEventListener("click", event => {
+        event.preventDefault();
+        activeCategory = button.dataset.category;
+        renderCategoryFilters();
+        renderProductsForCategory(activeCategory);
+      });
+    });
+  }
+
+  function renderProductsForCategory(categoryKey) {
+    const items = categoryKey === "all"
+      ? PRODUCTS
+      : PRODUCTS.filter(p => p.category === categoryKey);
+
+    allGrid.innerHTML = items.length
+      ? items.map(p => productCardHTML(p)).join("")
+      : `<p>No products found for ${categoryKey}</p>`;
+  }
+
+  renderCategoryFilters();
+  renderProductsForCategory(activeCategory);
+</script>
+</body>
+</html>
