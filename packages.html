@@ -7,6 +7,113 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<style>
+  /* ---------- Sample work slider — 16:9, arrows, touch, autoplay ---------- */
+  .gallery-slider {
+    position: relative;
+    margin: 8px 0 40px;
+    border-radius: var(--radius-lg, 16px);
+    overflow: hidden;
+    background: #0f1f4d;
+    user-select: none;
+  }
+  .gallery-slider-viewport {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+  }
+  .gallery-slider-track {
+    display: flex;
+    height: 100%;
+    transition: transform .45s ease;
+  }
+  .gallery-slider-track .slide {
+    flex: 0 0 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .gallery-slider-track .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;   /* full image visible, nothing cropped */
+    display: block;
+    pointer-events: none;
+  }
+  .gallery-slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(15, 31, 77, .65);
+    color: #fff;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    z-index: 2;
+    transition: background .2s ease, opacity .2s ease;
+  }
+  .gallery-slider-btn:hover {
+    background: rgba(15, 31, 77, .9);
+  }
+  .gallery-slider-btn:disabled {
+    opacity: .4;
+    cursor: default;
+    pointer-events: none;
+  }
+  .gallery-slider-btn.prev { left: 14px; }
+  .gallery-slider-btn.next { right: 14px; }
+  .gallery-slider-dots {
+    position: absolute;
+    bottom: 14px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    z-index: 2;
+  }
+  .gallery-slider-dots button {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .5);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background .2s ease, width .2s ease;
+  }
+  .gallery-slider-dots button.active {
+    background: #fff;
+    width: 22px;
+    border-radius: 5px;
+  }
+  @media (max-width: 768px) {
+    .gallery-slider-btn { width: 34px; height: 34px; font-size: 1rem; }
+  }
+
+  .gallery-slider-heading {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 20px;
+  }
+  .gallery-slider-heading .eyebrow {
+    display: block;
+    margin-bottom: 8px;
+  }
+  .gallery-slider-heading h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.3rem, 2.6vw, 1.8rem);
+    line-height: 1.35;
+    margin: 0;
+  }
+</style>
 </head>
 <body>
   <header class="site-header">
@@ -17,7 +124,6 @@
           <a href="./coll.html">Collections</a>
           <a href="products.html">Products</a>
           <a href="packages.html" class="active">Packages</a>
-          <a href="services.html">Services</a>
           <a href="about.html">About Us</a>
           <a href="contact.html">Contact</a>
         </nav>
@@ -49,14 +155,21 @@
     </header>
 
 <div class="container">
-  <div class="breadcrumb">
-    <a href="index.html">Home</a><span class="sep">›</span><span class="current">Packages</span>
+  
+
+
+  <div class="gallery-slider-heading">
+    <span class="eyebrow">Behind the Lens</span>
+    <h2>Real shoots, real clients — see the quality you'll get</h2>
   </div>
 
-  <div class="pkg-hero">
-    <span class="eyebrow">Event Coverage</span>
-    <h1>Photography &amp; Videography Packages</h1>
-    <p>From single-day shoots to full 3-day event coverage with albums and drone footage — pick the package that fits your event, or message us for a custom quote.</p>
+  <div class="gallery-slider" id="gallerySlider">
+    <div class="gallery-slider-viewport">
+      <div class="gallery-slider-track" id="gallerySliderTrack"></div>
+    </div>
+    <button class="gallery-slider-btn prev" aria-label="Previous image">&#10094;</button>
+    <button class="gallery-slider-btn next" aria-label="Next image">&#10095;</button>
+    <div class="gallery-slider-dots" id="gallerySliderDots"></div>
   </div>
 
   <div class="pkg-tabs" id="pkg-tabs"></div>
@@ -129,7 +242,6 @@
               <li><a href="products.html">Photo Frames</a></li>
               <li><a href="products.html">Gift Combos</a></li>
               <li><a href="packages.html">Packages</a></li>
-              <li><a href="services.html">Services</a></li>
               <li><a href="packages.html">Event Packages</a></li>
             </ul>
           </div>
@@ -188,6 +300,146 @@
 <script src="js/cart.js"></script>
 <script src="js/main.js"></script>
 <script src="js/pkg-selection.js"></script>
+<script>
+  // ===== Sample work slider — replace these paths with your own photos =====
+  const GALLERY_SLIDER_IMAGES = [
+    "images/p1.png",
+    "images/p2.png",
+    "images/p3.png",
+    "images/p4.png",
+    "images/p5.png",
+    "images/p6.png",
+    "images/p7.png",
+    "images/p8.png",
+  ];
+
+  (function () {
+    const slider = document.getElementById("gallerySlider");
+    const track = document.getElementById("gallerySliderTrack");
+    const dotsWrap = document.getElementById("gallerySliderDots");
+    const prevBtn = slider.querySelector(".gallery-slider-btn.prev");
+    const nextBtn = slider.querySelector(".gallery-slider-btn.next");
+    if (!slider || !track || !GALLERY_SLIDER_IMAGES.length) return;
+
+    const slidesHTML = GALLERY_SLIDER_IMAGES.map(src => `<div class="slide"><img src="${src}" alt="Hameed Studio sample photoshoot" loading="lazy"></div>`);
+    track.innerHTML = [slidesHTML.at(-1), ...slidesHTML, slidesHTML[0]].join("");
+    const slides = Array.from(track.children);
+    const realCount = GALLERY_SLIDER_IMAGES.length;
+
+    for (let i = 0; i < realCount; i++) {
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "gallery-dot" + (i === 0 ? " active" : "");
+      dot.setAttribute("aria-label", "Go to image " + (i + 1));
+      dot.addEventListener("click", () => goTo(i + 1));
+      dotsWrap.appendChild(dot);
+    }
+    const dots = Array.from(dotsWrap.children);
+
+    let index = 1;
+    let startX = 0;
+    let deltaX = 0;
+    let dragging = false;
+    let autoplayTimer = null;
+
+    function update(withTransition = true) {
+      track.style.transition = withTransition ? "" : "none";
+      track.style.transform = "translateX(" + (-index * 100) + "%)";
+      const dotIndex = (index - 1 + realCount) % realCount;
+      dots.forEach((d, i) => d.classList.toggle("active", i === dotIndex));
+    }
+
+    function goTo(i) {
+      index = i;
+      update();
+      restartAutoplay();
+    }
+
+    function next() { goTo(index + 1); }
+    function prev() { goTo(index - 1); }
+
+    prevBtn.addEventListener("click", prev);
+    nextBtn.addEventListener("click", next);
+
+    track.addEventListener("transitionend", () => {
+      if (index === 0) {
+        index = realCount;
+        update(false);
+      } else if (index === realCount + 1) {
+        index = 1;
+        update(false);
+      }
+    });
+
+    // ---- touch swipe ----
+    track.addEventListener("touchstart", e => {
+      startX = e.touches[0].clientX;
+      dragging = true;
+      track.style.transition = "none";
+      stopAutoplay();
+    }, { passive: true });
+
+    track.addEventListener("touchmove", e => {
+      if (!dragging) return;
+      deltaX = e.touches[0].clientX - startX;
+      const percent = (deltaX / slider.offsetWidth) * 100;
+      track.style.transform = "translateX(" + (-index * 100 + percent) + "%)";
+    }, { passive: true });
+
+    track.addEventListener("touchend", () => {
+      dragging = false;
+      track.style.transition = "";
+      if (Math.abs(deltaX) > slider.offsetWidth * 0.15) {
+        deltaX < 0 ? next() : prev();
+      } else {
+        update();
+      }
+      deltaX = 0;
+      restartAutoplay();
+    });
+
+    // ---- mouse drag (desktop) ----
+    track.addEventListener("mousedown", e => {
+      startX = e.clientX;
+      dragging = true;
+      track.style.transition = "none";
+      stopAutoplay();
+    });
+    window.addEventListener("mousemove", e => {
+      if (!dragging) return;
+      deltaX = e.clientX - startX;
+      const percent = (deltaX / slider.offsetWidth) * 100;
+      track.style.transform = "translateX(" + (-index * 100 + percent) + "%)";
+    });
+    window.addEventListener("mouseup", () => {
+      if (!dragging) return;
+      dragging = false;
+      track.style.transition = "";
+      if (Math.abs(deltaX) > slider.offsetWidth * 0.15) {
+        deltaX < 0 ? next() : prev();
+      } else {
+        update();
+      }
+      deltaX = 0;
+      restartAutoplay();
+    });
+
+    // ---- autoplay: every 3 seconds ----
+    function startAutoplay() {
+      autoplayTimer = setInterval(next, 3000);
+    }
+    function stopAutoplay() {
+      clearInterval(autoplayTimer);
+    }
+    function restartAutoplay() {
+      stopAutoplay();
+      startAutoplay();
+    }
+
+    update(false);
+    startAutoplay();
+  })();
+</script>
 <script>
   const tabsRow = document.getElementById("pkg-tabs");
   const grid = document.getElementById("pkg-grid");
