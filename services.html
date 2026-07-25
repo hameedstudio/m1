@@ -34,9 +34,9 @@
   }
 
   .services-list{
-    display:flex;
-    flex-direction:column;
-    gap:34px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:28px;
     margin-bottom:56px;
   }
 
@@ -44,10 +44,9 @@
     background:#fff;
     border:1px solid var(--border);
     border-radius:var(--radius-lg);
-    padding:32px;
+    padding:14px;
     display:flex;
-    align-items:center;
-    gap:40px;
+    flex-direction:column;
     transition:box-shadow .18s ease, transform .18s ease, border-color .18s ease;
   }
   .service-row:hover{
@@ -55,20 +54,14 @@
     transform:translateY(-3px);
     border-color:var(--gold-light);
   }
-  /* alternate layout on desktop for visual variety */
-  .service-row:nth-child(even){
-    flex-direction:row-reverse;
-  }
 
   .service-img-wrap{
     position:relative;
-    flex:0 0 260px;
-    width:260px;
-    height:260px;
+    width:100%;
+    aspect-ratio:1/1;
     border-radius:var(--radius);
     overflow:hidden;
     background:var(--cream);
-    box-shadow:var(--shadow-sm);
   }
   .service-img-wrap img{
     width:100%;
@@ -88,7 +81,10 @@
   }
   .service-badge i{color:var(--gold-light);font-size:1.15rem;}
 
-  .service-content{flex:1;min-width:240px;}
+  .service-content{
+    padding:22px 10px 6px;
+    text-align:center;
+  }
   .service-content .service-domain{
     display:inline-block;
     font-size:.8rem;
@@ -98,15 +94,15 @@
     margin-bottom:8px;
   }
   .service-content h2{
-    font-size:1.5rem;
+    font-size:1.3rem;
     margin-bottom:12px;
   }
   .service-content p{
     color:var(--muted);
-    font-size:.96rem;
-    line-height:1.8;
-    margin-bottom:22px;
-    max-width:560px;
+    font-size:.92rem;
+    line-height:1.75;
+    margin:0 auto 22px;
+    max-width:340px;
   }
   .service-content .btn{
     display:inline-flex;
@@ -122,26 +118,15 @@
   }
 
   @media (max-width:900px){
-    .service-row{gap:26px;padding:26px;}
-    .service-img-wrap{flex:0 0 200px;width:200px;height:200px;}
+    .services-list{grid-template-columns:repeat(2,1fr);}
   }
 
   @media (max-width:768px){
     .services-hero{padding:32px 22px;}
-    .service-row,
-    .service-row:nth-child(even){
-      flex-direction:column;
-      text-align:center;
-      padding:26px;
-    }
-    /* text above image on mobile */
-    .service-content{order:1;}
-    .service-img-wrap{order:2;width:100%;max-width:280px;height:auto;aspect-ratio:1/1;margin:0 auto;}
-    .service-content p{margin-left:auto;margin-right:auto;}
   }
 
-  @media (max-width:420px){
-    .service-img-wrap{max-width:220px;}
+  @media (max-width:560px){
+    .services-list{grid-template-columns:1fr;}
   }
 </style>
 </head>
@@ -202,8 +187,7 @@
 
     <div class="service-row">
       <div class="service-img-wrap">
-        <div class="service-badge"><i class="bi bi-heart-pulse-fill"></i></div>
-        <img src="s1.png" alt="WAFID Appointment">
+        <img src="./images/s1.png" alt="WAFID Appointment">
       </div>
       <div class="service-content">
         <span class="service-domain">wafidpk.com</span>
@@ -215,8 +199,7 @@
 
     <div class="service-row">
       <div class="service-img-wrap">
-        <div class="service-badge"><i class="bi bi-patch-check-fill"></i></div>
-        <img src="s2.png" alt="NAVTTC / Takamol">
+        <img src="./images/s2.png" alt="NAVTTC / Takamol">
       </div>
       <div class="service-content">
         <span class="service-domain">navttcpk.com</span>
@@ -228,8 +211,7 @@
 
     <div class="service-row">
       <div class="service-img-wrap">
-        <div class="service-badge"><i class="bi bi-fingerprint"></i></div>
-        <img src="s3.png" alt="Fingerprint Appointment">
+        <img src="./images/s3.png" alt="Fingerprint Appointment">
       </div>
       <div class="service-content">
         <span class="service-domain">fingerprintpk.com</span>
