@@ -201,9 +201,15 @@
   }
 
   function renderProductsForCategory(categoryKey) {
-    const items = categoryKey === "all"
+    let items = categoryKey === "all"
       ? PRODUCTS
       : PRODUCTS.filter(p => p.category === categoryKey);
+
+    if (categoryKey === "all") {
+      const deals = items.filter(p => p.category === "Deals");
+      const others = items.filter(p => p.category !== "Deals");
+      items = [...deals, ...others];
+    }
 
     allGrid.innerHTML = items.length
       ? items.map(p => productCardHTML(p)).join("")
