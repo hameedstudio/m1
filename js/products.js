@@ -291,7 +291,19 @@ const PRODUCTS = [
     reviews: 12,
     options: {
 
-      size: ["14", "16", "18", "20", "22", "24", "S", "M", "L", "XL", "XXL"]
+      size: [
+        { name: "14", price: 499 },
+        { name: "16", price: 499 },
+        { name: "18", price: 499 },
+        { name: "20", price: 499 },
+        { name: "22", price: 499 },
+        { name: "24", price: 499 },
+        { name: "S", price: 599 },
+        { name: "M", price: 599 },
+        { name: "L", price: 599 },
+        { name: "XL", price: 699 },
+        { name: "XXL", price: 699 }
+      ]
     },
     images: [
       { src: "./images/ws1.webp", label: "White Shirt" },
@@ -576,7 +588,19 @@ options: {
     rating: 4.6,
     reviews: 40,
     options: {
-      size: ["14", "16", "18", "20", "22", "24", "S", "M", "L", "XL", "XXL"]
+      size: [
+        { name: "14", price: 499 },
+        { name: "16", price: 499 },
+        { name: "18", price: 499 },
+        { name: "20", price: 499 },
+        { name: "22", price: 499 },
+        { name: "24", price: 499 },
+        { name: "S", price: 599 },
+        { name: "M", price: 599 },
+        { name: "L", price: 599 },
+        { name: "XL", price: 699 },
+        { name: "XXL", price: 699 }
+      ]
     },
     images: [
       { src: "./images/m1m12.webp", label: "14 August Shirt" },
