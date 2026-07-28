@@ -7,6 +7,89 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<style>
+  /* ---- Size Guide modal (self-contained, works with any theme) ---- */
+  .size-guide-link{
+    display:inline-flex;align-items:center;gap:6px;
+    margin-left:10px;font-size:.85rem;font-weight:600;
+    color:#1550b8;background:#eaf1ff;border:1px solid #cfe0ff;
+    padding:4px 10px;border-radius:20px;cursor:pointer;
+    transition:.2s ease;vertical-align:middle;
+  }
+  .size-guide-link:hover{background:#1550b8;color:#fff;border-color:#1550b8;}
+  .size-guide-link svg{width:14px;height:14px;flex-shrink:0;}
+
+  .size-guide-overlay{
+    position:fixed;inset:0;background:rgba(10,20,40,.55);
+    backdrop-filter:blur(3px);z-index:999;
+    display:none;align-items:center;justify-content:center;
+    padding:20px;
+  }
+  .size-guide-overlay.open{display:flex;}
+
+  .size-guide-modal{
+    background:#fff;border-radius:18px;width:100%;max-width:640px;
+    max-height:88vh;overflow:hidden;display:flex;flex-direction:column;
+    box-shadow:0 25px 60px -10px rgba(10,30,80,.35);
+    animation:sgPop .25s ease;
+  }
+  @keyframes sgPop{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+  .size-guide-head{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 22px;border-bottom:1px solid #eef1f7;
+  }
+  .size-guide-head h3{
+    margin:0;font-family:'Fraunces',serif;font-size:1.25rem;
+    color:#0d2c66;display:flex;align-items:center;gap:8px;
+  }
+  .size-guide-close{
+    background:#f2f4f8;border:none;width:34px;height:34px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    color:#333;transition:.2s;flex-shrink:0;
+  }
+  .size-guide-close:hover{background:#e3e7ef;}
+  .size-guide-close svg{width:16px;height:16px;}
+
+  .size-guide-body{padding:0 22px 22px;overflow-y:auto;}
+  .size-guide-note{
+    font-size:.85rem;color:#6b7280;margin:14px 0 16px;line-height:1.5;
+  }
+
+  .size-guide-table-wrap{
+    overflow-x:auto;border-radius:14px;box-shadow:0 6px 24px -8px rgba(20,50,110,.25);
+    -webkit-overflow-scrolling:touch;
+  }
+  table.size-guide-table{
+    width:100%;border-collapse:collapse;min-width:460px;font-size:.95rem;
+  }
+  .size-guide-table thead th{
+    background:linear-gradient(135deg,#0d3b8c,#1a5fd6);
+    color:#fff;font-weight:700;letter-spacing:.03em;
+    text-transform:uppercase;font-size:.78rem;
+    padding:14px 10px;text-align:center;
+  }
+  .size-guide-table thead th:first-child{border-top-left-radius:14px;}
+  .size-guide-table thead th:last-child{border-top-right-radius:14px;}
+  .size-guide-table tbody td{
+    padding:12px 10px;text-align:center;color:#2a2f3a;
+    border-bottom:1px solid #eef1f7;white-space:nowrap;
+  }
+  .size-guide-table tbody tr:nth-child(even){background:#f5f8ff;}
+  .size-guide-table tbody tr:last-child td{border-bottom:none;}
+  .size-guide-table td.sg-size{font-weight:700;color:#1550b8;}
+
+  @media (max-width:480px){
+    .size-guide-modal{border-radius:14px;max-height:85vh;}
+    .size-guide-head{padding:14px 16px;}
+    .size-guide-head h3{font-size:1.05rem;}
+    .size-guide-body{padding:0 12px 16px;}
+    table.size-guide-table{min-width:0;font-size:.82rem;}
+    .size-guide-table thead th{padding:10px 6px;font-size:.68rem;}
+    .size-guide-table tbody td{padding:9px 6px;}
+    .size-guide-link{font-size:.78rem;padding:3px 8px;margin-left:6px;}
+  }
+</style>
 </head>
 <body>
   <header class="site-header">
@@ -57,6 +140,31 @@
   </div>
 
   <div class="pd-layout" id="pd-root"></div>
+
+  <div class="size-guide-overlay" id="size-guide-overlay">
+    <div class="size-guide-modal">
+      <div class="size-guide-head">
+        <h3>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M3 8h18v8H3z"/><path d="M7 8v3M11 8v3M15 8v3"/></svg>
+          Size Guide
+        </h3>
+        <button type="button" class="size-guide-close" id="size-guide-close" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="size-guide-body">
+        <p class="size-guide-note">All measurements are in inches. Please match the chest measurement of a well-fitting shirt for the most accurate size.</p>
+        <div class="size-guide-table-wrap">
+          <table class="size-guide-table">
+            <thead>
+              <tr><th>Size</th><th>Length</th><th>Chest</th><th>Age Guide</th></tr>
+            </thead>
+            <tbody id="size-guide-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <section class="section" id="related-section">
     <div class="section-head">
@@ -172,6 +280,23 @@
 const params = new URLSearchParams(location.search);
 const product = getProductById(params.get("id")) || PRODUCTS[0];
 
+/* Size chart — shown only for products whose size list matches this
+   scheme (numeric kids sizes through S/M/L/XL/XXL), i.e. the shirts. */
+const SIZE_CHART = [
+  { size: "14",  length: 14, chest: 10, age: "0-1 year" },
+  { size: "16",  length: 16, chest: 11, age: "1-2 years (kids)" },
+  { size: "18",  length: 18, chest: 12, age: "2-3 years (kids)" },
+  { size: "20",  length: 20, chest: 13, age: "3-4 years (kids)" },
+  { size: "22",  length: 22, chest: 14, age: "4-5 years (kids)" },
+  { size: "24",  length: 24, chest: 16, age: "5-6 years (kids)" },
+  { size: "S",   length: 25, chest: 17, age: "7-9 years (kids)" },
+  { size: "M",   length: 26, chest: 18, age: "Adult" },
+  { size: "L",   length: 28, chest: 19, age: "-" },
+  { size: "XL",  length: 30, chest: 20, age: "-" },
+  { size: "XXL", length: 32, chest: 22, age: "-" }
+];
+const hasSizeChart = product.options?.size?.some(s => (typeof s === "object" ? s.name : s) === "14");
+
 let state = {
   imageIndex: 0,
   color: product.options?.color ? product.options.color[0].name : null,
@@ -220,7 +345,12 @@ function render() {
 
   const sizeBlock = product.options?.size ? `
     <div class="option-group">
-      <h4>Size <span class="option-selected-label">— ${state.size}</span></h4>
+      <h4>Size <span class="option-selected-label">— ${state.size}</span>
+        ${hasSizeChart ? `<button type="button" class="size-guide-link" id="size-guide-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h18v8H3z"/><path d="M7 8v3M11 8v3M15 8v3"/></svg>
+          Size Guide
+        </button>` : ""}
+      </h4>
       <div class="size-row">
         ${product.options.size.map(s => {
           const label = typeof s === "object" ? s.name : s;
@@ -342,6 +472,8 @@ function attachHandlers() {
       render();
     });
   });
+
+  document.getElementById("size-guide-btn")?.addEventListener("click", openSizeGuide);
   document.getElementById("qty-minus").addEventListener("click", () => {
     state.qty = Math.max(1, state.qty - 1);
     document.getElementById("qty-input").value = state.qty;
@@ -374,6 +506,33 @@ function attachHandlers() {
 }
 
 render();
+
+// ---- Size Guide modal ----
+const sizeGuideOverlay = document.getElementById("size-guide-overlay");
+document.getElementById("size-guide-table-body").innerHTML = SIZE_CHART.map(row => `
+  <tr>
+    <td class="sg-size">${row.size}</td>
+    <td>${row.length}</td>
+    <td>${row.chest}</td>
+    <td>${row.age}</td>
+  </tr>
+`).join("");
+
+function openSizeGuide() {
+  sizeGuideOverlay.classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+function closeSizeGuide() {
+  sizeGuideOverlay.classList.remove("open");
+  document.body.style.overflow = "";
+}
+document.getElementById("size-guide-close").addEventListener("click", closeSizeGuide);
+sizeGuideOverlay.addEventListener("click", (e) => {
+  if (e.target === sizeGuideOverlay) closeSizeGuide();
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeSizeGuide();
+});
 
 // Related products: same category, excluding current
 const related = PRODUCTS.filter(p => p.category === product.category && p.id !== product.id).slice(0, 4);
