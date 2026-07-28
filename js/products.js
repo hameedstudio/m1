@@ -283,20 +283,15 @@ const PRODUCTS = [
   {
     id: "white-shirt",
     name: "White Shirt",
-    price: 500,
+    price: 499,
     category: "Shirts",
     desc: "A crisp white custom shirt printed with your favourite photo or artwork.",
     specs: ["Soft cotton", "Photo print", "Comfort fit"],
     rating: 4.3,
     reviews: 12,
     options: {
-    
-      size: [
-        { name: "Small", price: 500 },
-        { name: "Medium", price: 650 },
-        { name: "Large", price: 750 },
-        { name: "XL", price: 850 }
-      ]
+
+      size: ["14", "16", "18", "20", "22", "24", "S", "M", "L", "XL", "XXL"]
     },
     images: [
       { src: "./images/ws1.webp", label: "White Shirt" },
@@ -572,7 +567,7 @@ options: {
   {
     id: "deal-14-august-shirt",
     name: "14 August Deal Shirt",
-    price: 599,
+    price: 499,
     oldPrice: 700,
     category: "Deals",
     badge: "Deal",
@@ -580,6 +575,9 @@ options: {
     specs: ["Printed shirt", "Special discount", "Limited stock"],
     rating: 4.6,
     reviews: 40,
+    options: {
+      size: ["14", "16", "18", "20", "22", "24", "S", "M", "L", "XL", "XXL"]
+    },
     images: [
       { src: "./images/m1m12.webp", label: "14 August Shirt" },
       { src: "./images/m1m1.webp", label: "14 August Shirt" }
