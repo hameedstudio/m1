@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <link rel="icon" type="image/png" href="f.png">
-<title>Your Cart — Hameed Photo Studio</title>
+<title>Your Cart — Hameed Studio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
   <header class="site-header">
@@ -19,6 +19,7 @@
           <a href="./coll.html">Collections</a>
           <a href="products.html">Products</a>
           <a href="packages.html">Packages</a>
+          <a href="services.html">Services</a>
           <a href="about.html">About Us</a>
           <a href="contact.html">Contact</a>
         </nav>
@@ -45,6 +46,7 @@
         <a href="coll.html">Collections</a>
         <a href="products.html">Products</a>
         <a href="packages.html">Packages</a>
+        <a href="services.html">Services</a>
         <a href="about.html">About Us</a>
         <a href="contact.html">Contact</a>
       </nav>
@@ -194,6 +196,30 @@
 <script src="js/cart.js"></script>
 <script src="js/main.js"></script>
 <script>
+/* ---- EmailJS setup (order notification email) ----
+   1. Sign up free at https://www.emailjs.com/
+   2. Add an Email Service (e.g. Gmail) -> copy its Service ID below.
+   3. Create an Email Template -> copy its Template ID below.
+      Use these variable names in the template body:
+      {{customer_name}} {{customer_email}} {{customer_phone}}
+      {{customer_address}} {{order_items}} {{order_total}} {{delivery_method}}
+   4. Go to Account > General -> copy your Public Key below.        */
+const EMAILJS_PUBLIC_KEY  = "YOUR_PUBLIC_KEY";
+const EMAILJS_SERVICE_ID  = "YOUR_SERVICE_ID";
+const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+const OWNER_EMAIL = "mubbashar3458181082@gmail.com";
+
+if (window.emailjs) {
+  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+}
+
+function sendOrderEmail(params) {
+  if (!window.emailjs) return;
+  emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params)
+    .then(() => console.log("Order email sent"))
+    .catch((err) => console.error("Order email failed:", err));
+}
+
 let appliedPromo = null;
 
 function populatePickupBranches() {
@@ -297,7 +323,20 @@ Tax: ${formatRs(tax)}
   // Encode for WhatsApp URL
   const encodedMessage = encodeURIComponent(message);
   const whatsappUrl = `https://wa.me/923338181082?text=${encodedMessage}`;
-  
+
+  // Send order notification email to the shop owner (fire-and-forget,
+  // doesn't block the WhatsApp redirect if it fails).
+  sendOrderEmail({
+    to_email: OWNER_EMAIL,
+    customer_name: name,
+    customer_email: email,
+    customer_phone: phone,
+    customer_address: deliveryService === "pickup" ? `Pickup: ${pickupBranch}` : address,
+    order_items: cartSummary,
+    order_total: formatRs(total),
+    delivery_method: serviceLabel
+  });
+
   // Clear cart and redirect
   clearCart();
   closeCheckoutModal();
