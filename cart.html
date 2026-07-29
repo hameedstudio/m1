@@ -204,19 +204,24 @@
       {{customer_name}} {{customer_email}} {{customer_phone}}
       {{customer_address}} {{order_items}} {{order_total}} {{delivery_method}}
    4. Go to Account > General -> copy your Public Key below.        */
-const EMAILJS_PUBLIC_KEY  = "YOUR_PUBLIC_KEY";
-const EMAILJS_SERVICE_ID  = "YOUR_SERVICE_ID";
-const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
-const OWNER_EMAIL = "mubbashar3458181082@gmail.com";
+const EMAILJS_PUBLIC_KEY  = "nGV5SFj42c_iEFEx0";
+const EMAILJS_SERVICE_ID  = "service_hthu36j";
+const EMAILJS_TEMPLATE_ID = "agvfww6";
+// Note: recipient email (mubbashar3458181082@gmail.com) is already
+// set inside the EmailJS template's "To Email" field, so it doesn't
+// need to be passed from here.
 
 if (window.emailjs) {
   emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 }
 
 function sendOrderEmail(params) {
-  if (!window.emailjs) return;
-  emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params)
-    .then(() => console.log("Order email sent"))
+  if (!window.emailjs) {
+    console.error("EmailJS SDK did not load — check your internet connection / script tag.");
+    return Promise.resolve();
+  }
+  return emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params)
+    .then((res) => console.log("Order email sent:", res.status, res.text))
     .catch((err) => console.error("Order email failed:", err));
 }
 
@@ -258,7 +263,7 @@ function closeCheckoutModal() {
   }
 }
 
-function handleCheckoutSubmit(event) {
+async function handleCheckoutSubmit(event) {
   event.preventDefault();
   
   const name = document.getElementById("customer-name").value.trim();
@@ -326,24 +331,23 @@ Tax: ${formatRs(tax)}
 
   // Send order notification email to the shop owner (fire-and-forget,
   // doesn't block the WhatsApp redirect if it fails).
-  sendOrderEmail({
-    to_email: OWNER_EMAIL,
+  const orderId = Date.now().toString().slice(-6);
+  const fullOrderDetails = `${cartSummary}\n\nDelivery Method: ${serviceLabel}${pickupLine}\nAddress: ${deliveryService === "pickup" ? pickupBranch : address}${discount ? `\nPromo Code: ${appliedPromo} (-${formatRs(discount)})` : ""}\nDelivery Charges: ${formatRs(deliveryCharges)}\nTax: ${formatRs(tax)}`;
+  showToast("Sending order...");
+  await sendOrderEmail({
+    order_id: orderId,
     customer_name: name,
     customer_email: email,
     customer_phone: phone,
-    customer_address: deliveryService === "pickup" ? `Pickup: ${pickupBranch}` : address,
-    order_items: cartSummary,
-    order_total: formatRs(total),
-    delivery_method: serviceLabel
+    order_details: fullOrderDetails,
+    total: formatRs(total)
   });
 
   // Clear cart and redirect
   clearCart();
   closeCheckoutModal();
   showToast("Redirecting to WhatsApp...");
-  setTimeout(() => {
-    window.location.href = whatsappUrl;
-  }, 500);
+  window.location.href = whatsappUrl;
 }
 
 function renderCartPage() {
